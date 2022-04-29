@@ -33,5 +33,13 @@ public class DataGetter {
         }
         client.seDeconnecter();
         return array;
-    }   
+    }
+    public void getImage(String url, String name) {
+        if (!client.seConnecter(url)) {
+            System.out.println("Impossible de se connecter : " + url);
+            return ;
+        }
+        client.recevoirImage(name);
+        client.seDeconnecter();
+    }
 }

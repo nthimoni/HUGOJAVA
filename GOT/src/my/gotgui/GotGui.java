@@ -3,9 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package my.gotgui;
+
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import org.json.simple.JSONArray;
-import java.util.ArrayList;
 import org.json.simple.JSONObject;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author thimo
@@ -31,8 +38,13 @@ public class GotGui extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jToggleButton2 = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Got Explorer");
@@ -49,14 +61,18 @@ public class GotGui extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
         jList2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jScrollPane1.setViewportView(jList2);
-
-        jButton1.setText("Load Info");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jList2.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList2ValueChanged(evt);
             }
         });
+        jScrollPane1.setViewportView(jList2);
+
+        jLabel1.setText("Full Name :");
+
+        jLabel2.setText("Title : ");
+
+        jLabel3.setText("Family :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -64,21 +80,34 @@ public class GotGui extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(107, 107, 107))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -89,18 +118,37 @@ public class GotGui extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Load Familly Member");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Load All Character");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jToggleButton2)
-                .addGap(46, 46, 46))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jToggleButton2)
+                        .addGap(46, 46, 46))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(17, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +156,10 @@ public class GotGui extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButton2)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -117,13 +168,118 @@ public class GotGui extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private Image ResizeImg(BufferedImage img, int w, int h) {
+        int imgW = img.getWidth();
+        int imgH = img.getHeight();
+        int newW = imgW;
+        int newH = imgH;
+        if (newH > h)
+        {
+            newW *= (float)h / newH;
+            newH *= (float)h / newH;
+        }
+        return (img.getScaledInstance(newW, newH,
+                Image.SCALE_SMOOTH));
+    }
+    
+    private int get_index(int selected)
+    {
+        int i = 0;
+        for (Object obj : array) {
+            if ((((JSONObject) obj).get("family")).toString().equals(family_selected))
+            {
+                if (selected == 0)
+                {
+                    System.out.println(i);
+                    return (i);
+                }
+                selected--;
+            }
+            i++;
+        }
+        return (0);
+    }
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
+    private void jList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList2ValueChanged
+        int id;
+        if (family_mode)
+            id = this.get_index(jList2.getSelectedIndex());
+        else
+            id = jList2.getSelectedIndex();
+        String imageName = (((JSONObject) array.get(id)).get("image")).toString();
+        jLabel1.setText("Full Name : " + (((JSONObject) array.get(id)).get("fullName")).toString());
+        jLabel2.setText("Title : " + (((JSONObject) array.get(id)).get("title")).toString());
+        jLabel3.setText("Family : " + (((JSONObject) array.get(id)).get("family")).toString());
+
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(imageName));
+        } catch (IOException e) {
+            getter.getImage((((JSONObject) array.get(id)).get("imageUrl")).toString(), imageName);
+            try {
+                img = ImageIO.read(new File(imageName));
+            } catch (IOException u) {
+                System.out.println("Error during image loading : " + imageName + " " + e.getMessage());
+                try {
+                img = ImageIO.read(new File("none.jpg"));
+                }
+                catch (IOException r){System.exit(-1);}
+            }
+
+        }
+        Image resized_img = this.ResizeImg(img, jLabel4.getWidth(), jLabel4.getHeight());
+        ImageIcon icon = new ImageIcon(resized_img);
+        jLabel4.setIcon(icon);
+    }//GEN-LAST:event_jList2ValueChanged
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        // LOAD FAMILLY MEMBER
+        family_mode = true;
+        family_selected = (((JSONObject) array.get(jList2.getSelectedIndex())).get("family")).toString();
+        
+        //array = getter.getArrayFromUrl("https://thronesapi.com/api/v2/Characters");
+        names = new String[array.size()];
+        int i = 0;
+        for (Object obj : array) {
+            if (!(((JSONObject) obj).get("family")).toString().equals(family_selected))
+                continue ;
+            names[i] = "";
+            if (!"No One".equals((((JSONObject) obj).get("title")).toString())) {
+                names[i] += (((JSONObject) obj).get("title")).toString() + " ";
+            }
+            names[i] += (((JSONObject) obj).get("fullName"));
+            i++;
+        }
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        String[] strings = names;
+        public int getSize() { return strings.length; }
+        public String getElementAt(int i) { return strings[i]; }
+      
+});
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // LOAD ALL CHARACTER
+        family_mode = false;
+        names = new String[array.size()];
+        int i = 0;
+        for (Object obj : array) {
+            names[i] = "";
+            if (!"No One".equals((((JSONObject) obj).get("title")).toString())) {
+                names[i] += (((JSONObject) obj).get("title")).toString() + " ";
+            }
+            names[i] += (((JSONObject) obj).get("fullName"));
+            i++;
+        }
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        String[] strings = names;
+        public int getSize() { return strings.length; }
+        public String getElementAt(int i) { return strings[i]; }
+});
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,17 +307,20 @@ public class GotGui extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GotGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        DataGetter getter = new DataGetter();
-        JSONArray array = getter.getArrayFromUrl("https://thronesapi.com/api/v2/Characters");
+        family_mode = false;
+        getter = new DataGetter();
+        array = getter.getArrayFromUrl("https://thronesapi.com/api/v2/Characters");
         names = new String[array.size()];
         int i = 0;
-        for (Object obj : array)
-        {
-            names[i] = (((JSONObject)obj).get("firstName")).toString();
+        for (Object obj : array) {
+            names[i] = "";
+            if (!"No One".equals((((JSONObject) obj).get("title")).toString())) {
+                names[i] += (((JSONObject) obj).get("title")).toString() + " ";
+            }
+            names[i] += (((JSONObject) obj).get("fullName"));
             i++;
         }
-        names[0] = "Doudou";
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -170,10 +329,18 @@ public class GotGui extends javax.swing.JFrame {
         });
     }
 
-
     static private String names[];
+    static private JSONArray array;
+    static private DataGetter getter;
+    static private Boolean family_mode;
+    static private String family_selected;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -101,11 +101,19 @@ public class ClientHttp {
     */
     public void recevoirImage(String nomFichier) {
         InputStream is = null;
+        System.out.println(nomFichier);
         try {
             is = new BufferedInputStream(connexion.getInputStream());
             BufferedImage image = ImageIO.read(is);
             is.close();
-            ImageIO.write(image, "jpg", new File(nomFichier));
+
+            if (nomFichier.contains(".png"))
+            {
+                System.out.println("oui");
+                ImageIO.write(image, "png", new File(nomFichier));
+            }
+            else
+                ImageIO.write(image, "jpg", new File(nomFichier));
         } catch (IOException ex) {
             System.out.println("erreur reception image");
         }
