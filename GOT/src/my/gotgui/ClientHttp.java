@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author hugo
  */
 package my.gotgui;
+
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -19,31 +19,36 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.imageio.ImageIO;
+
 /**
-*
-* @author prof
-*/
+ *
+ * @author prof
+ */
 public class ClientHttp {
+
     private HttpURLConnection connexion;
     private String reception;
     private String total = "";
+
     public ClientHttp() {
     }
+
     /**
-    * La méthode seDeconnecter permet la déconnexion du client http
-    */
+     * La méthode seDeconnecter permet la déconnexion du client http
+     */
     public void seDeconnecter() {
         connexion.disconnect();
     }
+
     /**
-    * La méthode seConnecter permet la connexion au serveur Http. Le nom du
-    * fichier à transférer est nécessaire.
-    *
-    * @param adresse : url complète du site. Exemple :
-    * http://api.football-data.org/v2/competitions/PL/matches/?matchday=22
-    * @return true si la connexion a été établie. false sinon
-    * @author prof
-    */
+     * La méthode seConnecter permet la connexion au serveur Http. Le nom du
+     * fichier à transférer est nécessaire.
+     *
+     * @param adresse : url complète du site. Exemple :
+     * http://api.football-data.org/v2/competitions/PL/matches/?matchday=22
+     * @return true si la connexion a été établie. false sinon
+     * @author prof
+     */
     public boolean seConnecter(String adresse) {
         URL url = null;
         try {
@@ -61,15 +66,15 @@ public class ClientHttp {
         System.out.println("connexion OK");
         return true;
     }
+
     /**
-    * La méthode recevoir permet la reception de données du serveur Http. La
-    * connexion doit être établie au préalable.
-    *
-    * @return Une chaîne de caractères en provenance du serveur (format 
-    html,
-    * json, xml ou autre).
-    * @author prof
-    */
+     * La méthode recevoir permet la reception de données du serveur Http. La
+     * connexion doit être établie au préalable.
+     *
+     * @return Une chaîne de caractères en provenance du serveur (format html,
+     * json, xml ou autre).
+     * @author prof
+     */
     public String recevoir() {
         InputStream inp;
         total = "";
@@ -91,15 +96,16 @@ public class ClientHttp {
         }
         return total;
     }
+
     /**
-    * La méthode recevoirImage permet la reception d'une image du serveur Http.
-    * La connexion doit être établie au préalable. L'image est ensuite
-    * sauvegardée sur le disque dur
-    *
-    * @param nomFichier représente le nom du fichier sur le disque dur, une
-    * fois le téléchargement effectué.
-    * @author prof
-    */
+     * La méthode recevoirImage permet la reception d'une image du serveur Http.
+     * La connexion doit être établie au préalable. L'image est ensuite
+     * sauvegardée sur le disque dur
+     *
+     * @param nomFichier représente le nom du fichier sur le disque dur, une
+     * fois le téléchargement effectué.
+     * @author prof
+     */
     public void recevoirImage(String nomFichier) {
         InputStream is = null;
         try {

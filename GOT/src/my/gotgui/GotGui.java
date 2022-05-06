@@ -4,19 +4,15 @@
  */
 package my.gotgui;
 
-import java.awt.Color;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
 import javax.imageio.ImageIO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import javax.swing.ImageIcon;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 /**
  *
@@ -286,7 +282,7 @@ public class GotGui extends javax.swing.JFrame {
         for (Object obj : array) {
             names[i] = "";
             final String title = (((JSONObject) obj).get("title")).toString();
-            if (!title.equals("No One")){
+            if (!title.equals("No One")) {
                 names[i] += title + " ";
             }
             names[i] += (((JSONObject) obj).get("fullName"));
@@ -317,7 +313,7 @@ public class GotGui extends javax.swing.JFrame {
         } else {
             id = jList2.getSelectedIndex();
         }
-        final JSONObject selected = ((JSONObject)array.get(id));
+        final JSONObject selected = ((JSONObject) array.get(id));
         String imageName = selected.get("image").toString();
         jLabel1.setText("Full Name : " + selected.get("fullName").toString());
         jLabel2.setText("Title : " + selected.get("title").toString());
@@ -405,7 +401,7 @@ public class GotGui extends javax.swing.JFrame {
         for (Object obj : array) {
             names[i] = "";
             final String title = (((JSONObject) obj).get("title")).toString();
-            if (!title.equals("No One")){
+            if (!title.equals("No One")) {
                 names[i] += title + " ";
             }
             names[i] += (((JSONObject) obj).get("fullName"));
