@@ -26,8 +26,7 @@ public class GotGui extends javax.swing.JFrame {
 
     /**
      * Creates new form GotGui
-     */       
-
+     */
     public GotGui() {
         initComponents();
 
@@ -40,11 +39,10 @@ public class GotGui extends javax.swing.JFrame {
         }
         Image resized_img = img.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(resized_img);
-        background=new JLabel(icon);
-        
+        background = new JLabel(icon);
         add(background);
         background.setLayout(new FlowLayout());
-        
+
         jButton3.setVisible(true);
         jButton1.setVisible(false);
         jButton2.setVisible(false);
@@ -55,11 +53,6 @@ public class GotGui extends javax.swing.JFrame {
         jList2.setVisible(false);
         jScrollPane1.setVisible(false);
         jButton4.setVisible(false);
-
-        
-
-       
-
     }
 
     /**
@@ -201,41 +194,41 @@ public class GotGui extends javax.swing.JFrame {
         int imgH = img.getHeight();
         int newW = imgW;
         int newH = imgH;
-        if (newH > h)
-        {
-            newW *= (float)h / newH;
-            newH *= (float)h / newH;
+        if (newH > h) {
+            newW *= (float) h / newH;
+            newH *= (float) h / newH;
         }
-        if (newW > w)
-        {
-            newW *= (float)w / newW;
-            newH *= (float)w / newW;
+        if (newW > w) {
+            newW *= (float) w / newW;
+            newH *= (float) w / newW;
         }
         return (img.getScaledInstance(newW, newH,
                 Image.SCALE_SMOOTH));
     }
-    
-    private int nb_member_family()
-    {
+
+    private int nb_member_family() {
         int i = 0;
         for (Object obj : array) {
-            if ((((JSONObject) obj).get("family")).toString().equals(family_selected)
-                    || (((JSONObject) obj).get("family")).toString().equals("House " + family_selected)
-                    || ("House " + (((JSONObject) obj).get("family")).toString()).equals(family_selected))
+            final String family_to_check = (((JSONObject) obj).get("family")).toString();
+            if (family_to_check.equals(family_selected)
+                    || family_to_check.equals("House " + family_selected)
+                    || ("House " + family_to_check).equals(family_selected)) {
                 i++;
+            }
         }
         return i;
     }
-    private int get_index(int selected)
-    {
+
+    private int get_index(int selected) {
         int i = 0;
         for (Object obj : array) {
-            if ((((JSONObject) obj).get("family")).toString().equals(family_selected)
-                    || (((JSONObject) obj).get("family")).toString().equals("House " + family_selected)
-                    || ("House " + (((JSONObject) obj).get("family")).toString()).equals(family_selected))
-            {
-                if (selected == 0)
+            final String family_to_check = (((JSONObject) obj).get("family")).toString();
+            if (family_to_check.equals(family_selected)
+                    || family_to_check.equals("House " + family_selected)
+                    || ("House " + family_to_check).equals(family_selected)) {
+                if (selected == 0) {
                     return (i);
+                }
                 selected--;
             }
             i++;
@@ -244,84 +237,106 @@ public class GotGui extends javax.swing.JFrame {
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // LOAD FAMILLY MEMBER
-        if (family_mode)
-            return ;
+        if (family_mode) {
+            return;
+        }
 
         family_mode = true;
         family_selected = (((JSONObject) array.get(jList2.getSelectedIndex())).get("family")).toString();
         names = new String[this.nb_member_family()];
         int i = 0;
         for (Object obj : array) {
-            if (!((((JSONObject) obj).get("family")).toString().equals(family_selected)
-                    || (((JSONObject) obj).get("family")).toString().equals("House " + family_selected)
-                    || ("House " + (((JSONObject) obj).get("family")).toString()).equals(family_selected)  ))
+            JSONObject tmp = (JSONObject) obj;
+            final String family_to_check = (tmp.get("family")).toString();
+            if (!(family_to_check.equals(family_selected)
+                    || family_to_check.equals("House " + family_selected)
+                    || ("House " + family_to_check).equals(family_selected))) {
                 continue;
-            names[i] = "";
-            if (!"No One".equals((((JSONObject) obj).get("title")).toString())) {
-                names[i] += (((JSONObject) obj).get("title")).toString() + " ";
             }
-            names[i] += (((JSONObject) obj).get("fullName"));
+            names[i] = "";
+            if (!"No One".equals((tmp.get("title")).toString())) {
+                names[i] += (tmp.get("title")).toString() + " ";
+            }
+            names[i] += (tmp.get("fullName"));
             i++;
         }
         jList2.setModel(new javax.swing.AbstractListModel<String>() {
-        String[] strings = names;
-        public int getSize() { return strings.length; }
-        public String getElementAt(int i) { return strings[i]; }
-        
-});
-          jList2.setSelectedIndex(0);
+            String[] strings = names;
+
+            public int getSize() {
+                return strings.length;
+            }
+
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+
+        });
+        jList2.setSelectedIndex(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // LOAD ALL CHARACTER
-        if (!family_mode)
-            return ;
+        if (!family_mode) {
+            return;
+        }
         family_mode = false;
         names = new String[array.size()];
         int i = 0;
         for (Object obj : array) {
             names[i] = "";
-            if (!"No One".equals((((JSONObject) obj).get("title")).toString())) {
-                names[i] += (((JSONObject) obj).get("title")).toString() + " ";
+            final String title = (((JSONObject) obj).get("title")).toString();
+            if (!title.equals("No One")){
+                names[i] += title + " ";
             }
             names[i] += (((JSONObject) obj).get("fullName"));
             i++;
         }
         jList2.setModel(new javax.swing.AbstractListModel<String>() {
-        String[] strings = names;
-        public int getSize() { return strings.length; }
-        public String getElementAt(int i) { return strings[i]; }
-});
+            String[] strings = names;
+
+            public int getSize() {
+                return strings.length;
+            }
+
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
         jList2.setSelectedIndex(0);
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList2ValueChanged
-        if (jList2.getSelectedIndex() == -1)
-            return ;
+        if (jList2.getSelectedIndex() == -1) {
+            return;
+        }
         int id;
-        if (family_mode)
-        id = this.get_index(jList2.getSelectedIndex());
-        else
-        id = jList2.getSelectedIndex();
-        String imageName = (((JSONObject) array.get(id)).get("image")).toString();
-        jLabel1.setText("Full Name : " + (((JSONObject) array.get(id)).get("fullName")).toString());
-        jLabel2.setText("Title : " + (((JSONObject) array.get(id)).get("title")).toString());
-        jLabel3.setText("Family : " + (((JSONObject) array.get(id)).get("family")).toString());
+        if (family_mode) {
+            id = this.get_index(jList2.getSelectedIndex());
+        } else {
+            id = jList2.getSelectedIndex();
+        }
+        final JSONObject selected = ((JSONObject)array.get(id));
+        String imageName = selected.get("image").toString();
+        jLabel1.setText("Full Name : " + selected.get("fullName").toString());
+        jLabel2.setText("Title : " + selected.get("title").toString());
+        jLabel3.setText("Family : " + selected.get("family").toString());
 
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File(imageName));
         } catch (IOException e) {
-            getter.getImage((((JSONObject) array.get(id)).get("imageUrl")).toString(), imageName);
+            getter.getImage(selected.get("imageUrl").toString(), imageName);
             try {
                 img = ImageIO.read(new File(imageName));
             } catch (IOException u) {
                 System.out.println("Error during image loading : " + imageName + " " + e.getMessage());
                 try {
                     img = ImageIO.read(new File("assets/none.jpg"));
+                } catch (IOException r) {
+                    System.exit(-1);
                 }
-                catch (IOException r){System.exit(-1);}
             }
         }
         Image resized_img = this.ResizeImg(img, jLabel4.getWidth(), jLabel4.getHeight());
@@ -389,8 +404,9 @@ public class GotGui extends javax.swing.JFrame {
         int i = 0;
         for (Object obj : array) {
             names[i] = "";
-            if (!"No One".equals((((JSONObject) obj).get("title")).toString())) {
-                names[i] += (((JSONObject) obj).get("title")).toString() + " ";
+            final String title = (((JSONObject) obj).get("title")).toString();
+            if (!title.equals("No One")){
+                names[i] += title + " ";
             }
             names[i] += (((JSONObject) obj).get("fullName"));
             i++;
@@ -401,7 +417,7 @@ public class GotGui extends javax.swing.JFrame {
             public void run() {
 
                 new GotGui().setVisible(true);
-                
+
             }
         });
     }
