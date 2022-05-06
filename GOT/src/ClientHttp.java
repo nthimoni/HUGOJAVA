@@ -106,14 +106,7 @@ public class ClientHttp {
             is = new BufferedInputStream(connexion.getInputStream());
             BufferedImage image = ImageIO.read(is);
             is.close();
-
-            if (nomFichier.contains(".png"))
-            {
-                System.out.println("oui");
-                ImageIO.write(image, "png", new File(nomFichier));
-            }
-            else
-                ImageIO.write(image, "jpg", new File(nomFichier));
+            ImageIO.write(image, "jpg", new File(nomFichier));
         } catch (IOException ex) {
             System.out.println("erreur reception image");
         }
